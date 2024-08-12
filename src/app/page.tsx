@@ -14,6 +14,7 @@ export default function Home() {
     const fetchBannerData = async () => {
       try {
         const response = await fetch(`/api/banner/get-banner?banner_username=defaultBanner`, {
+          cache: 'no-store',
           headers: {
             'Content-Type': 'application/json',
           },

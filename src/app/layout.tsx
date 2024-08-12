@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import NavBar from "@/components/Navbar";
 
+export const dynamic = 'force-dynamic'
 const mont = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
