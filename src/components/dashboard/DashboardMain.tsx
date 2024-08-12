@@ -1,6 +1,6 @@
 'use client'
 
-import { useSearchParams } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import React from 'react'
 import DashboardBanner from './DashboardBanner'
 import { LiaCogSolid } from 'react-icons/lia'
@@ -16,18 +16,21 @@ const DashboardCard = ({
   title: string;
   description: string;
   buttonLabel: string;
-}) => (
+}) => { 
+
+  const { push } = useRouter()
+  return(
   <Link
     className="flex flex-col p-4 rounded-md transition-all duration-300 shadow-sm bg-gradient-to-r from-pink-50 via-red-100 to-orange-100 dark:from-zinc-950 dark:via-neutral-950 dark:to-neutral-950 h-full border "
     href={'#'}
   >
     <h1 className="font-medium text-lg mb-2 text-gray-800 dark:text-gray-100">{title}</h1>
     <p className=" text-neutral-600 dark:text-neutral-300 mb-4">{description}</p>
-    <button className="self-start px-4 py-2 mt-auto transition-all ease-in-out duration-150 text-white active:scale-[0.98] bg-red-500 rounded-md hover:bg-red-600">
+    <button onClick={()=>push(href)} className="self-start px-4 py-2 mt-auto transition-all ease-in-out duration-150 text-white active:scale-[0.98] bg-red-500 rounded-md hover:bg-red-600">
       {buttonLabel}
     </button>
   </Link>
-);
+)}
 
 
 const DashboardMain = () => {
