@@ -42,7 +42,7 @@ const Banner: React.FC<BannerData> = ({ description, link, enddate }) => {
   return (
     <div 
       onClick={() => router.push(link)} 
-      className={`relative cursor-pointer font-serif min-h-[20rem] bg-white dark:bg-black p-8 h-fit rounded-md shadow-sm border 
+      className={`relative cursor-pointer font-serif min-h-[16rem] sm:min-h-[20rem] bg-white dark:bg-black p-8 h-fit rounded-md shadow-sm border 
         text-white bg-gradient-to-r from-pink-500  to-yellow-500 dark:from-black dark:via-neutral-800 dark:to-neutral-900 w-full 
         ${countdown <= 10 ? 'animate-pulse' : ''} ${countdown <= 0 && 'hidden'} justify-center items-center flex `}  
     >
