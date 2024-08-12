@@ -47,7 +47,7 @@ const Banner: React.FC<BannerData> = ({ description, link, enddate }) => {
         ${countdown <= 10 ? 'animate-pulse' : ''} ${countdown <= 0 && 'hidden'} justify-center items-center flex `}  
     >
       <div className="flex justify-between items-center flex-wrap gap-4 w-full h-full">
-        <div className="text-lg md:text-4xl font-bold w-full max-w-[28rem] z-[1]">
+        <div className="text-2xl md:text-4xl font-bold w-full max-w-[28rem] z-[1]">
           <Link href={link} passHref target="_blank" rel="noopener noreferrer" className="hover:underline">
               {description}
           </Link>
