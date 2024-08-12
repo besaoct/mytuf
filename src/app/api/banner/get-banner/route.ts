@@ -15,7 +15,6 @@ interface BannerSettings {
 export async function GET(req: Request) {   
  const url = new URL(req.url);
   try {
-    console.log("Jobless hoo sirji, 2024 me graduate hua, DSA practice nahi hai, development karleta hoon, salary kam hoga toh bhi chalega 5-20k dedo, hard work karunga firbhi dedo ek job! agar kaam pasand aya toh salary badha dena sir. Tier 3 se hoon, manta hoon galti mera bhi hai ki maine DSA ni kara, 300 question solve kia tha lekin 2-3 saal pehle, abhi practice nahi hai")
 
 
     const bannerUsername = url.searchParams.get('banner_username');
