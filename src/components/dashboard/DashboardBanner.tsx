@@ -31,7 +31,7 @@ const DashboardBanner: React.FC = () => {
     const fetchSettings = async () => {
       try {
         const response = await fetch(`/api/banner/get-banner?banner_username=${bannerUsername}`, {
-          cache: 'no-store',
+          // cache: 'no-store',
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
