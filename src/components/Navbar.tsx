@@ -11,6 +11,7 @@ export const navItems = [
   { href: '/', label: 'Home' },
   { href: '/dashboard', label: 'Dashboard' },
   { href: '/tuf-plus', label: 'Explore +' },
+  { href: '/flashcards', label: 'Flashcards' },
   { href: 'https://resayai.vercel.app', label: 'Generate resume' , blank:true },
 ]
 
@@ -39,8 +40,6 @@ const NavBar = () => {
     <div className="sm:max-w-[12rem] w-full h-fit sm:h-full flex flex-col gap-4 rounded-md sm:top-4 sm:sticky">
       <div className="px-4 py-2 flex justify-between gap-1 items-center rounded-md bg-white dark:bg-black ">
      
-        
-   
         <Link href={'/'}  className="flex-1">
           <svg
             width="80"
