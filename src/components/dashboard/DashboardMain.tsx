@@ -21,11 +21,11 @@ const DashboardCard = ({
   const { push } = useRouter()
   return(
   <Link
-    className="flex flex-col p-4 rounded-md transition-all duration-300 shadow-sm bg-gradient-to-r from-pink-50 via-red-100 to-orange-100 dark:from-zinc-950 dark:via-neutral-950 dark:to-neutral-950 h-full border "
+    className="flex flex-col p-4 rounded-md transition-all duration-300 shadow-sm bg-gradient-to-r bg-white dark:from-zinc-950 cursor-default dark:via-neutral-950 dark:to-neutral-950 h-fit border dark:bg-black "
     href={href}
   >
-    <h1 className="font-medium text-lg mb-2 text-gray-800 dark:text-gray-100">{title}</h1>
-    <p className=" text-neutral-600 dark:text-neutral-300 mb-4">{description}</p>
+    <h1 className="font-semibold text-base mb-2 text-gray-800 dark:text-gray-100">{title}</h1>
+    <p className=" text-muted-foreground dark:text-neutral-300 mb-4 break-words line-clamp-1">{description}</p>
    
     <button onClick={()=>push(href)} className="self-start px-4 py-2 mt-auto transition-all ease-in-out duration-150 text-white active:scale-[0.98] bg-red-500 rounded-md hover:bg-red-600">
       {buttonLabel}
@@ -42,8 +42,8 @@ const DashboardMain = () => {
     searchParam === 'banner' ? (
       <DashboardBanner />
     ) : (
-      <div className="mx-auto flex flex-col gap-4 w-full h-fit">
-        <h2 className="text-base font-medium flex items-center gap-1">
+      <div className="mx-auto flex flex-col gap-4 w-full h-full">
+        <h2 className="text-base font-semibold flex items-center gap-1">
           <LiaCogSolid size={24} className="inline" /> Dashboard
         </h2>
    

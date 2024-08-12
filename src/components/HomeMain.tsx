@@ -14,12 +14,12 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ icon, title, description, buttonText, buttonLink}) => {
   return (
-    <div className="p-4 bg-white rounded-md shadow-sm dark:bg-black border flex flex-col w-full justify-between bg-gradient-to-r from-pink-50 via-red-100 to-orange-100 dark:from-black dark:via-neutral-950 dark:to-neutral-950">
+    <div className="p-4 bg-white rounded-md shadow-sm dark:bg-black border flex flex-col w-full justify-between bg-gradient-to-r from-white via-white to-white dark:from-black dark:via-neutral-950 dark:to-neutral-950">
       <div>
       <div className="text-4xl mb-4">
         {icon}
       </div>
-      <h3 className="text-base font-bold text-foreground mb-2">{title}</h3>
+      <h3 className="text-base font-semibold text-foreground mb-2">{title}</h3>
       <p className=" text-muted-foreground mb-4">{description}</p>
       </div>
       <Link 

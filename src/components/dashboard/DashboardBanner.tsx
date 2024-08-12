@@ -113,15 +113,15 @@ const DashboardBanner: React.FC = () => {
 
   return (
     <div className="mx-auto p-4 bg-white dark:bg-black rounded-md shadow-sm flex flex-col gap-4 w-full">
-      <h2 className="text-base font-medium flex items-center gap-1">
-        <BiChevronLeft onClick={() => router.back()} size={24} className='inline cursor-pointer' /> Control banner
+      <h2 onClick={() => router.back()} className="font-medium  cursor-pointer flex items-center bg-accent p-2 pr-4 rounded-md w-fit">
+        <BiChevronLeft  size={20} className='inline cursor-pointer w-fit p-0 ' /> Back
       </h2>
-      <hr />
+      {/* <hr /> */}
       {error && <div className="bg-red-100 text-red-700 p-4 rounded mb-4">{error}</div>}
       {success && <div className="bg-green-100 text-green-600 p-4 rounded mb-4">{success}</div>}
       <div className="flex flex-col gap-4 w-full">
         <div className="flex items-center justify-start gap-4">
-          <label className="">
+          <label className="text-sm font-medium">
             {!is_visible ? 'Enable banner' : 'Disable banner'}
           </label>
           <button
@@ -140,24 +140,24 @@ const DashboardBanner: React.FC = () => {
         </div>
 
         <div>
-          <label className="block mb-2">Banner Description</label>
+          <label className="block mb-2 font-medium">Banner Description</label>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full p-3 rounded-md border max-h-32"
+            className="w-full p-3 rounded-md border max-h-32 focus:outline-none"
             rows={3}
           />
         </div>
 
         <div>
-          <label className="block mb-2">Timer</label>
+          <label className="block mb-2 font-medium">Timer</label>
           <div className="flex space-x-4">
             <div>
               <input
                 type="number"
                 value={days}
                 onChange={(e) => setDays(Number(e.target.value))}
-                className="w-full p-3 rounded-md border"
+                className="w-full p-3 rounded-md border  focus:outline-none"
                 min="0"
               />
               <label className="block text-muted-foreground text-center mt-1">Days</label>
@@ -167,7 +167,7 @@ const DashboardBanner: React.FC = () => {
                 type="number"
                 value={hours}
                 onChange={(e) => setHours(Number(e.target.value))}
-                className="w-full p-3 rounded-md border"
+                className="w-full p-3 rounded-md border  focus:outline-none"
                 min="0"
               />
               <label className="block text-muted-foreground text-center mt-1">Hours</label>
@@ -177,7 +177,7 @@ const DashboardBanner: React.FC = () => {
                 type="number"
                 value={minutes}
                 onChange={(e) => setMinutes(Number(e.target.value))}
-                className="w-full p-3 rounded-md border"
+                className="w-full p-3 rounded-md border focus:outline-none"
                 min="0"
               />
               <label className="block text-muted-foreground text-center mt-1">Minutes</label>
@@ -187,7 +187,7 @@ const DashboardBanner: React.FC = () => {
                 type="number"
                 value={seconds}
                 onChange={(e) => setSeconds(Number(e.target.value))}
-                className="w-full p-3 rounded-md border"
+                className="w-full p-3 rounded-md border focus:outline-none"
                 min="0"
               />
               <label className="block text-muted-foreground text-center mt-1">Seconds</label>
@@ -196,12 +196,12 @@ const DashboardBanner: React.FC = () => {
         </div>
 
         <div>
-          <label className="block mb-2">Link</label>
+          <label className="block mb-2 font-medium">Link</label>
           <input
             type="text"
             value={link}
             onChange={(e) => setLink(e.target.value)}
-            className="w-full p-3 rounded-lg border"
+            className="w-full p-3 rounded-lg border focus:outline-none"
           />
         </div>
 
