@@ -1,10 +1,18 @@
 'use client'
 
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 import { ModeToggle } from './ModeToggle'
-import { HamburgerMenuIcon } from '@radix-ui/react-icons'
+
 import { usePathname } from 'next/navigation'
+import { MenuToggle } from './MobileMenu'
+
+export const navItems = [
+  { href: '/', label: 'Home' },
+  { href: '/dashboard', label: 'Dashboard' },
+  { href: '/tuf-plus', label: 'Explore +' },
+  { href: 'https://resayai.vercel.app', label: 'Generate resume' , blank:true },
+]
 
 const NavLink = ({ href, label,blank }: { href: string, label: string, blank?:boolean }) => {
   const pathname = usePathname()
@@ -24,23 +32,15 @@ const NavLink = ({ href, label,blank }: { href: string, label: string, blank?:bo
 }
 
 const NavBar = () => {
-  const [isMenuVisible, setMenuVisible] = useState(false)
 
-  const toggleMenu = () => setMenuVisible(!isMenuVisible)
 
-  const navItems = [
-    { href: '/', label: 'Home' },
-    { href: '/dashboard', label: 'Dashboard' },
-    { href: '/tuf-plus', label: 'Explore +' },
-    { href: 'https://resayai.vercel.app', label: 'Generate resume' , blank:true },
-  ]
 
   return (
     <div className="sm:max-w-[12rem] w-full h-fit sm:h-full flex flex-col gap-4 rounded-md sm:top-4 sm:sticky">
       <div className="px-4 py-2 flex justify-between gap-1 items-center rounded-md bg-white dark:bg-black ">
-        <div className="sm:hidden cursor-pointer" onClick={toggleMenu}>
-          <HamburgerMenuIcon width={20} />
-        </div>
+     
+        
+   
         <Link href={'/'}  className="flex-1">
           <svg
             width="80"
@@ -63,12 +63,14 @@ const NavBar = () => {
             ></path>
           </svg>
         </Link>
+
+        <div className='flex gap-4 justify-start w-fit items-center'>
         <ModeToggle />
+        <MenuToggle/>
+        </div>
       </div>
       <div
-        className={`${
-          !isMenuVisible ? 'hidden' : 'flex'
-        } p-2 sm:flex flex-col gap-2 justify-start rounded-md bg-white dark:bg-black  sm:h-full`}
+        className={`hidden p-2 sm:flex flex-col gap-2 justify-start rounded-md bg-white dark:bg-black  sm:h-full`}
       >
         {navItems.map((item) => (
           <NavLink key={item.href} href={item.href} label={item.label} blank={item.blank} />
