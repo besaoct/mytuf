@@ -100,7 +100,7 @@ export default function MainBanner() {
 
   return (
     <>
-      {( (loading || error)) && (
+      {(loading || error) && (
         <>
          <BannerLoading/>
         </>
