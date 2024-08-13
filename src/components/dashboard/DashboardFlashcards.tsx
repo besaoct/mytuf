@@ -13,6 +13,8 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 
+export const dynamic = 'force-dynamic';
+
 interface Flashcard {
     id: number;
     question: string;
@@ -24,6 +26,8 @@ interface Topic {
     name: string;
     slug: string;
 }
+
+
 
 const DashboardFlashcards = () => {
     const router = useRouter();
@@ -53,6 +57,7 @@ const DashboardFlashcards = () => {
         }
         try {
             const response = await fetch("/api/flashcards/create", {
+                cache:'no-store',
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -90,6 +95,7 @@ const DashboardFlashcards = () => {
             const response = await fetch(
                 `/api/flashcards/edit-card/${editingCard.id}`,
                 {
+                    // cache:'no-store',
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
@@ -122,6 +128,7 @@ const DashboardFlashcards = () => {
     const handleDelete = async (id: number) => {
         try {
             const response = await fetch(`/api/flashcards/delete-card/${id}`, {
+                // cache:'no-store',
                 method: "DELETE",
             });
             if (!response.ok) {
@@ -146,6 +153,7 @@ const DashboardFlashcards = () => {
         try {
             setLoadingCT(true);
             const response = await fetch("/api/flashcards/topics/create-topic", {
+                // cache:'no-store',
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -176,6 +184,7 @@ const DashboardFlashcards = () => {
             const response = await fetch(
                 `/api/flashcards/topics/edit-topic/${editedTopic.id}`,
                 {
+                    // cache:'no-store',
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
@@ -219,6 +228,7 @@ const DashboardFlashcards = () => {
             const response = await fetch(
                 `/api/flashcards/topics/delete-topic/${id}`,
                 {
+                    // cache:'no-store',
                     method: "DELETE",
                 }
             );
@@ -240,7 +250,9 @@ const DashboardFlashcards = () => {
             setLoadingF(true);
             try {
                 const topicSlug = selectedTopic.slug;
-                const response = await fetch(`/api/flashcards?topicSlug=${topicSlug}`);
+                const response = await fetch(`/api/flashcards?topicSlug=${topicSlug}`, {
+                      cache:'no-store',
+                });
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
@@ -261,7 +273,9 @@ const DashboardFlashcards = () => {
         const fetchTopics = async () => {
             setLoadingT(true);
             try {
-                const response = await fetch("/api/flashcards/topics");
+                const response = await fetch("/api/flashcards/topics", {
+                    cache:'no-store',
+                });
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
                 }
