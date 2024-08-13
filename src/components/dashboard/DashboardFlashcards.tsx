@@ -14,8 +14,6 @@ import {
 } from "@/components/ui/select";
 
 
-export const dynamic = 'force-dynamic';
-
 interface Flashcard {
     id: number;
     question: string;
@@ -58,7 +56,7 @@ const DashboardFlashcards = () => {
         }
         try {
             const response = await fetch("/api/flashcards/create", {
-                // cache:'no-store',
+                cache:'no-store',
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -95,7 +93,7 @@ const DashboardFlashcards = () => {
             const response = await fetch(
                 `/api/flashcards/edit-card/${editingCard.id}`,
                 {
-                    // cache:'no-store',
+                    cache:'no-store',
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
@@ -128,7 +126,7 @@ const DashboardFlashcards = () => {
     const handleDelete = async (id: number) => {
         try {
             const response = await fetch(`/api/flashcards/delete-card/${id}`, {
-                // cache:'no-store',
+                cache:'no-store',
                 method: "DELETE",
             });
             if (!response.ok) {
@@ -153,7 +151,7 @@ const DashboardFlashcards = () => {
         try {
             setLoadingCT(true);
             const response = await fetch("/api/flashcards/topics/create-topic", {
-                // cache:'no-store',
+                cache:'no-store',
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -184,7 +182,7 @@ const DashboardFlashcards = () => {
             const response = await fetch(
                 `/api/flashcards/topics/edit-topic/${editedTopic.id}`,
                 {
-                    // cache:'no-store',
+                    cache:'no-store',
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
@@ -228,7 +226,7 @@ const DashboardFlashcards = () => {
             const response = await fetch(
                 `/api/flashcards/topics/delete-topic/${id}`,
                 {
-                    // cache:'no-store',
+                    cache:'no-store',
                     method: "DELETE",
                 }
             );
@@ -236,7 +234,7 @@ const DashboardFlashcards = () => {
                 throw new Error("Network response was not ok");
             }
             setTopics(topics.filter((topic) => topic.id !== id));
-            setSelectedTopic(null); // Reset selected topic
+            setSelectedTopic(null); 
             toast({ title: "Success", description: "Topic deleted successfully" });
         } catch (error) {
             toast({ title: "Error", description: "Something went wrong!" });
@@ -336,14 +334,14 @@ const DashboardFlashcards = () => {
                 <div className="mt-4 w-fit">
                     <Select
                         onValueChange={(value) => {
-                            (value === 'none') ? 
+                            ((value === 'none') || (value === null)) ? 
                             setSelectedTopic(null)
                             :
                             setSelectedTopic(
                                 topics.find((topic) => topic.id === Number(value)) || null
                             )
                         } }
-                        defaultValue={""}
+                        defaultValue={undefined}
                     >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue placeholder="Select a topic..." />
