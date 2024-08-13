@@ -12,7 +12,7 @@ const TopicList: React.FC = () => {
     const fetchTopicsWithCards = async () => {
       try {
         const response = await fetch('/api/flashcards/topics-with-cards', {
-          cache: 'no-store'
+          // cache: 'no-store'
         });
         if (!response.ok) {
           throw new Error('Network response was not ok');

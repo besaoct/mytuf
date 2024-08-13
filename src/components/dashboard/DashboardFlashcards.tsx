@@ -58,7 +58,7 @@ const DashboardFlashcards = () => {
         }
         try {
             const response = await fetch("/api/flashcards/create", {
-                cache:'no-store',
+                // cache:'no-store',
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -95,7 +95,7 @@ const DashboardFlashcards = () => {
             const response = await fetch(
                 `/api/flashcards/edit-card/${editingCard.id}`,
                 {
-                    cache:'no-store',
+                    // cache:'no-store',
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
@@ -128,7 +128,7 @@ const DashboardFlashcards = () => {
     const handleDelete = async (id: number) => {
         try {
             const response = await fetch(`/api/flashcards/delete-card/${id}`, {
-                cache:'no-store',
+                // cache:'no-store',
                 method: "DELETE",
             });
             if (!response.ok) {
@@ -153,7 +153,7 @@ const DashboardFlashcards = () => {
         try {
             setLoadingCT(true);
             const response = await fetch("/api/flashcards/topics/create-topic", {
-                cache:'no-store',
+                // cache:'no-store',
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -184,7 +184,7 @@ const DashboardFlashcards = () => {
             const response = await fetch(
                 `/api/flashcards/topics/edit-topic/${editedTopic.id}`,
                 {
-                    cache:'no-store',
+                    // cache:'no-store',
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
@@ -228,7 +228,7 @@ const DashboardFlashcards = () => {
             const response = await fetch(
                 `/api/flashcards/topics/delete-topic/${id}`,
                 {
-                    cache:'no-store',
+                    // cache:'no-store',
                     method: "DELETE",
                 }
             );
