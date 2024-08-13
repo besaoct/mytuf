@@ -12,10 +12,9 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { revalidatePath } from "next/cache";
+
 
 export const dynamic = 'force-dynamic';
-
 
 interface Flashcard {
     id: number;
@@ -78,7 +77,6 @@ const DashboardFlashcards = () => {
             const newCard = await response.json();
 
             setFlashcards([...flashcards, newCard]);
-            //    console.log(flashcards)
             toast({ title: "success", description: "Flashcard saved successfully" });
             setNewQuestion("");
             setNewAnswer("");
@@ -86,7 +84,6 @@ const DashboardFlashcards = () => {
             toast({ title: "Error", description: "Error creating flashcard" });
             console.error("Error creating flashcard:", error);
         } finally {
-            // revalidatePath('/')
             setLoadingCF(false);
         }
     };
