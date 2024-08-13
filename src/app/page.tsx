@@ -1,12 +1,16 @@
 
+import MainBanner, { BannerLoading } from "@/components/Homebanner";
 import MainComponent from "@/components/HomeMain";
-import HomePage from "@/components/HomePage";
+import { Suspense } from "react";
+
 
 export default function Home() {
   
   return (
 <section className="flex flex-col gap-4">
-  <HomePage/>
+   <Suspense fallback={<BannerLoading/>}>
+      <MainBanner/>
+   </Suspense>
   <MainComponent/>
 </section>
   );

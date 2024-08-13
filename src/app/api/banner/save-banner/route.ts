@@ -4,7 +4,7 @@ import { pool } from '@/lib/db';
 interface BannerSettings {
   is_visible: boolean;
   description: string;
-  timer: number; // Timer in seconds
+  timer: number;
   link: string;
   bannerUsername: string;
 }
@@ -18,7 +18,6 @@ export async function POST(req: Request) {
     if (!bannerUsername) {
       return NextResponse.json({ error: 'Banner username is required' }, { status: 400 });
     }
-
 
     const startdate = new Date(); 
     const enddate = new Date(startdate.getTime() + timer * 1000);

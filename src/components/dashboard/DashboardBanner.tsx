@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { BiChevronLeft } from 'react-icons/bi';
+import { useToast } from '../ui/use-toast';
 
 interface BannerSettings {
   is_visible: boolean;
@@ -14,6 +15,7 @@ interface BannerSettings {
 }
 
 const DashboardBanner: React.FC = () => {
+  const { toast } = useToast()
   const [is_visible, setVisible] = useState<boolean>(true);
   const [description, setDescription] = useState<string>("");
   const [enddate, setEnddate] = useState<string>("");
@@ -61,7 +63,6 @@ const DashboardBanner: React.FC = () => {
         setSeconds(timerInSeconds % 60);
       } catch (error) {
         setError('An unexpected error occurred.');
-        // console.error('Error fetching settings:', error);
       }
     };
 
@@ -97,20 +98,20 @@ const DashboardBanner: React.FC = () => {
       }
 
       setSuccess((await response.json()).message);
+      toast({title:"Success", description:"Banner saved successfully"})
+  
       setTimeout(() => {
         router.refresh()
         setSuccess('');
       }, 3000);
-
     } catch (error) {
+      toast({title:"Error", description:"Something went wrong!"})
       setError('An unexpected error occurred.');
-      // console.error('Error saving settings:', error);
       setTimeout(() => {
         router.refresh()
         setError('');
       }, 3000);
     }
-  
   };
 
 

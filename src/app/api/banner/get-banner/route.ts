@@ -27,13 +27,13 @@ export async function GET(req: Request) {
     const [rows] = await pool.query('SELECT * FROM banner_settings WHERE banner_username = ?', [bannerUsername]);
    
     // console.log('Raw database response:', rows);  
-    // (shafin @besaoct )
-
+ 
     const results = rows as BannerSettings[];
 
     if (results.length === 0) {
       return NextResponse.json({ error: 'Banner settings not found' }, { status: 404 });
     }
+    
     // since we expect a unique banner_username: 
     const bannerSettings = results[0];
 

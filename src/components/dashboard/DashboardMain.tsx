@@ -5,6 +5,7 @@ import React, { Suspense } from 'react'
 import DashboardBanner from './DashboardBanner'
 import Link from 'next/link'
 import { BiLoader } from 'react-icons/bi'
+import DashboardFlashcards from './DashboardFlashcards'
 
 const DashboardCard = ({
   href,
@@ -48,7 +49,19 @@ const DashboardMain = () => {
       </>}>
          <DashboardBanner />
       </Suspense>
-    ) : (
+    ) :
+
+    searchParam === 'flash-cards' ? (
+      <Suspense fallback={<>
+         <div className='w-full flex justify-center items-center h-[80vh] min-h-fit'>
+          <BiLoader size={32} className='animate-spin'/>
+        </div>
+      </>}>
+         <DashboardFlashcards/>
+      </Suspense>
+    ) 
+    
+    : (
       <div className="mx-auto flex flex-col gap-4 w-full h-full">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 h-fit w-full items-start">
         <DashboardCard
@@ -58,16 +71,16 @@ const DashboardMain = () => {
           buttonLabel="Manage "
         />
         <DashboardCard
+          href="/dashboard?manage=flash-cards"
+          title="Manage Flashcards"
+          description="Create and organize flash cards for better learning and retention."
+          buttonLabel="Manage"
+        />
+        <DashboardCard
           href="/dashboard?manage=tuf-plus"
           title="Manage Tuf+"
           description="Configure and control your Tuf+ settings to enhance your user experience."
           buttonLabel="Manage "
-        />
-        <DashboardCard
-          href="/dashboard?manage=flash-cards"
-          title="Manage Flash Cards"
-          description="Create and organize flash cards for better learning and retention."
-          buttonLabel="Manage"
         />
         <DashboardCard
           href="/dashboard?manage=testimonials"

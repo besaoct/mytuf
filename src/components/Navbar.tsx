@@ -20,8 +20,8 @@ import {
 export const navItems = [
   { href: '/', label: 'Home' },
   { href: '/dashboard', label: 'Dashboard' },
-  { href: '/tuf-plus', label: 'Explore +' },
   { href: '/flashcards', label: 'Flashcards' },
+  { href: '/tuf-plus', label: 'Explore +' },
   { href: 'https://resayai.vercel.app', label: 'Generate resume' , blank:true },
 ]
 
@@ -33,8 +33,8 @@ const NavLink = ({ href, label,blank }: { href: string, label: string, blank?:bo
     <Link
       href={href}
       target={blank? '_blank': '_self'}
-      className={`flex p-2 justify-between gap-1 items-center hover:bg-accent rounded ${
-        isActive ? 'bg-accent ' : ''
+      className={`flex p-2 justify-between gap-1 font-medium items-center hover:bg-accent rounded ${
+        isActive ? 'bg-accent' : ''
       } ` }
     >
       {label}
@@ -95,7 +95,7 @@ export const TopBar =() =>(
         <ModeToggle/>
      </div>
       <Button variant={'secondary'} className='rounded'>
-        Get 1:1 Mentorship
+        Get mentorship
        </Button>
        <Button variant={'secondary'} className='rounded text-white bg-rose-600 hover:bg-rose-500'>
          Login
@@ -117,7 +117,7 @@ export function MobileMenuToggle() {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="sm:hidden">
   
-        {navItems.map((item)=>
+          {navItems.map((item)=>
               <DropdownMenuItem key={item.href} onClick={() => push(item.href)}>
                  {item.label}
               </DropdownMenuItem>

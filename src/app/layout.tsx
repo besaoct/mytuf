@@ -3,10 +3,11 @@ import { Montserrat } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import NavBar, { TopBar } from "@/components/Navbar";
+import { Toaster } from "@/components/ui/toaster";
 
 // export const dynamic = 'force-dynamic';
 
-const font = Montserrat({ subsets: ["latin"] });
+const montserrat= Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "TUF",
@@ -24,7 +25,7 @@ export default function RootLayout({
         <link rel="shortcut icon" href="logo.png" type="image/x-icon" />
       </head>
       <body
-        className={`${font.className} w-full bg-neutral-100 dark:bg-neutral-900 tabular-nums min-h-fit h-[100%]`}
+        className={`${montserrat.className} w-full bg-neutral-100 dark:bg-neutral-900 tabular-nums min-h-fit h-[100%]`}
       >
         <ThemeProvider
           attribute="class"
@@ -40,6 +41,7 @@ export default function RootLayout({
             </div>
           </main>
         </ThemeProvider>
+         <Toaster />
       </body>
     </html>
   );
