@@ -74,6 +74,7 @@ const DashboardBanner: React.FC = () => {
 
     try {
       const response = await fetch('/api/banner/save-banner', {
+        cache:'no-store',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -99,16 +100,15 @@ const DashboardBanner: React.FC = () => {
 
       setSuccess((await response.json()).message);
       toast({title:"Success", description:"Banner saved successfully"})
-  
+      router.refresh()
       setTimeout(() => {
-        router.refresh()
         setSuccess('');
       }, 3000);
     } catch (error) {
       toast({title:"Error", description:"Something went wrong!"})
       setError('An unexpected error occurred.');
+      router.refresh()
       setTimeout(() => {
-        router.refresh()
         setError('');
       }, 3000);
     }

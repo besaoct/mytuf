@@ -14,8 +14,6 @@ import {
 } from "@/components/ui/select";
 
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
 
 interface Flashcard {
     id: number;
