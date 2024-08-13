@@ -276,7 +276,7 @@ const DashboardFlashcards = () => {
         };
 
         fetchTopics();
-    }, []);
+    }, [toast]);
 
     return (
         <div className="mx-auto p-4 bg-white dark:bg-black rounded-md shadow-sm flex flex-col gap-4 w-full">
