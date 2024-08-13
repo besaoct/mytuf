@@ -72,7 +72,7 @@ export default function MainBanner() {
         const response = await fetch(
           `/api/banner/get-banner?banner_username=defaultBanner`,
           {
-            // cache: "no-store",
+            cache: "no-store",
             headers: {
               "Content-Type": "application/json",
             },
