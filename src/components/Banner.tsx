@@ -5,23 +5,18 @@ import { useRouter } from 'next/navigation';
 
 const Banner: React.FC<BannerData> = ({ description, link, enddate }) => {
  
-  const [countdown, setCountdown] = useState(0);
   const router = useRouter();
+  const [countdown, setCountdown] = useState(0);
 
   useEffect(() => {
     const currentTime = new Date().getTime() ;
-    const endTime = new Date(enddate).getTime(); // Convert enddate to milliseconds
-   
-    console.log(endTime)
-    console.log(currentTime)
-
-    const remainingTime = endTime - currentTime; // Remaining time in milliseconds
-    
+    const endTime = new Date(enddate).getTime();
+    const remainingTime = endTime - currentTime;
     if (remainingTime > 0) {
-      setCountdown(Math.max(remainingTime / 1000, 0)); // Convert milliseconds to seconds
+      setCountdown(Math.max(remainingTime / 1000, 0));
 
       const intervalId = setInterval(() => {
-        setCountdown((prev) => Math.max(prev - 1, 0)); // Decrement countdown, ensuring it doesn’t go negative
+        setCountdown((prev) => Math.max(prev - 1, 0)); 
       }, 1000);
 
       return () => clearInterval(intervalId);
@@ -36,7 +31,7 @@ const Banner: React.FC<BannerData> = ({ description, link, enddate }) => {
     const hours = Math.floor(seconds / 3600);
     const minutes = Math.floor((seconds % 3600) / 60);
     const secs = Math.floor(seconds % 60);
-    return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    return `${hours}h: ${minutes < 10 ? '0' : ''}${minutes}m: ${secs < 10 ? '0' : ''}${secs}s`;
   };
   
   return (

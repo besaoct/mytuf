@@ -9,13 +9,14 @@ interface BannerSettings {
   description: string;
   timer: number; 
   link: string;
+  enddate:string;
   bannerUsername: string;
 }
-
 
 const DashboardBanner: React.FC = () => {
   const [is_visible, setVisible] = useState<boolean>(true);
   const [description, setDescription] = useState<string>("");
+  const [enddate, setEnddate] = useState<string>("");
   const [days, setDays] = useState<number>(0);
   const [hours, setHours] = useState<number>(0);
   const [minutes, setMinutes] = useState<number>(0);
@@ -48,9 +49,10 @@ const DashboardBanner: React.FC = () => {
         }
 
         const data: BannerSettings = await response.json();
-        console.log(data)
+        // console.log(data)
         const timerInSeconds = data.timer;
         setVisible(data.is_visible);
+        setEnddate(data.enddate);
         setDescription(data.description);
         setLink(data.link);
         setDays(Math.floor(timerInSeconds / 86400));
@@ -59,7 +61,7 @@ const DashboardBanner: React.FC = () => {
         setSeconds(timerInSeconds % 60);
       } catch (error) {
         setError('An unexpected error occurred.');
-        console.error('Error fetching settings:', error);
+        // console.error('Error fetching settings:', error);
       }
     };
 
@@ -102,7 +104,7 @@ const DashboardBanner: React.FC = () => {
 
     } catch (error) {
       setError('An unexpected error occurred.');
-      console.error('Error saving settings:', error);
+      // console.error('Error saving settings:', error);
       setTimeout(() => {
         router.refresh()
         setError('');
@@ -110,6 +112,33 @@ const DashboardBanner: React.FC = () => {
     }
   
   };
+
+
+  const [countdown, setCountdown] = useState(0);
+
+  useEffect(() => {
+    const currentTime = new Date().getTime() ;
+    const endTime = new Date(enddate).getTime();
+    const remainingTime = endTime - currentTime;
+    if (remainingTime > 0) {
+      setCountdown(Math.max(remainingTime / 1000, 0));
+
+      const intervalId = setInterval(() => {
+        setCountdown((prev) => Math.max(prev - 1, 0)); 
+      }, 1000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [enddate]);
+
+
+  const formatTime = (seconds: number) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${hours}h: ${minutes < 10 ? '0' : ''}${minutes}m: ${secs < 10 ? '0' : ''}${secs}s`;
+  };
+  
 
   return (
     <div className="mx-auto p-4 bg-white dark:bg-black rounded-md shadow-sm flex flex-col gap-4 w-full">
@@ -120,7 +149,7 @@ const DashboardBanner: React.FC = () => {
       {success && <div className="bg-green-100 text-green-600 p-4 rounded mb-4">{success}</div>}
       <div className="flex flex-col gap-4 w-full">
         <div className="flex items-center justify-start gap-4">
-          <label className="text-sm font-medium">
+          <label htmlFor='bannerToggleVisibility' className="text-sm font-medium select-none cursor-pointer">
             {!is_visible ? 'Enable banner' : 'Disable banner'}
           </label>
           <button
@@ -150,6 +179,9 @@ const DashboardBanner: React.FC = () => {
 
         <div>
           <label className="block mb-2 font-medium">Timer</label>
+           <div className='mb-2'>
+              Countdown of previous banner: <span className='inline text-rose-600'> {formatTime(countdown)}</span>
+           </div>
           <div className="flex space-x-4">
             <div>
               <input

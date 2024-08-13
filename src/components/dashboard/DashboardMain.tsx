@@ -1,10 +1,10 @@
 'use client'
 
 import { useRouter, useSearchParams } from 'next/navigation'
-import React from 'react'
+import React, { Suspense } from 'react'
 import DashboardBanner from './DashboardBanner'
-import { LiaCogSolid } from 'react-icons/lia'
 import Link from 'next/link'
+import { BiLoader } from 'react-icons/bi'
 
 const DashboardCard = ({
   href,
@@ -41,13 +41,15 @@ const DashboardMain = () => {
 
   return (
     searchParam === 'banner' ? (
-      <DashboardBanner />
+      <Suspense fallback={<>
+         <div className='w-full flex justify-center items-center h-[80vh] min-h-fit'>
+          <BiLoader size={32} className='animate-spin'/>
+        </div>
+      </>}>
+         <DashboardBanner />
+      </Suspense>
     ) : (
       <div className="mx-auto flex flex-col gap-4 w-full h-full">
-        <h2 className="text-base font-semibold flex items-center gap-1">
-          <LiaCogSolid size={24} className="inline" /> Dashboard
-        </h2>
-   
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 h-fit w-full items-start">
         <DashboardCard
           href="/dashboard?manage=banner"

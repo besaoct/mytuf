@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider"
-import NavBar from "@/components/Navbar";
+import { ThemeProvider } from "@/components/theme-provider";
+import NavBar, { TopBar } from "@/components/Navbar";
 
 // export const dynamic = 'force-dynamic';
 
-const mont = Montserrat({ subsets: ["latin"] });
+const font = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "TUF",
@@ -21,22 +21,25 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-         <link rel="shortcut icon" href="logo.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="logo.png" type="image/x-icon" />
       </head>
-      <body className={`${mont.className} w-full bg-neutral-200 dark:bg-neutral-900 tabular-nums min-h-fit h-[100%]`}>
+      <body
+        className={`${font.className} w-full bg-neutral-100 dark:bg-neutral-900 tabular-nums min-h-fit h-[100%]`}
+      >
         <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-     <main className="flex min-h-fit h-full gap-4 w-full max-w-[96rem] mx-auto justify-start items-start p-4 text-sm flex-wrap">
-        <NavBar/>
-       <div className="flex-1 h-full min-h-fit">
-            {children}
-       </div>
-    </main>
-          </ThemeProvider>
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <main className="flex min-h-fit h-full gap-4 w-full max-w-full mx-auto justify-start items-start text-sm flex-wrap">
+            <NavBar />
+            <div className="flex-1 h-full min-h-fit ml-0 sm:ml-[12rem]">
+              <TopBar />
+              <div className="p-4 w-full mt-[4rem] z-0">{children}</div>
+            </div>
+          </main>
+        </ThemeProvider>
       </body>
     </html>
   );
