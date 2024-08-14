@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { pool } from '@/lib/db';
 import { ResultSetHeader } from 'mysql2/promise';
 
-export async function DELETE({ params }: { params: { id: string } }) {
+export async function DELETE(req: Request,{ params }: { params: { id: string } }) {
   const { id } = params;
 
   try {
