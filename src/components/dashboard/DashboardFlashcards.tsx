@@ -277,9 +277,7 @@ const DashboardFlashcards = () => {
 
     useEffect(() => {
         const fetchTopics = async () => {
-
             setLoadingT(true);
-
             try {
                 const response = await fetch("/api/flashcards/topics", {
                     cache:'no-store',
