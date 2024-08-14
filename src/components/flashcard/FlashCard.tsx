@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react';
-// import './style.css';
 
 interface FlashcardProps {
   question: string;
