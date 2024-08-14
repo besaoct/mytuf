@@ -10,7 +10,7 @@ import { Toaster } from "@/components/ui/toaster";
 const montserrat= Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "TUF",
+  title: "mytuf",
   description: "TakUForward",
 };
 

@@ -34,7 +34,10 @@ const TopicList: React.FC = () => {
 
   return (
     <div className="p-4 bg-white dark:bg-black rounded-md">
-      <h2 className="text-xl font-bold mb-4">Topics</h2>
+  <div className='flex items-center gap-2 mb-4'>
+  <h2 className="text-xl font-bold">Topics</h2>
+  <Link href={'/dashboard?manage=flash-cards'} className='underline pl-2 border-l'>Create new</Link>
+  </div>
       {
         loading && <>
         <BiLoader size={20} className='animate-spin inline'/> loading topics...

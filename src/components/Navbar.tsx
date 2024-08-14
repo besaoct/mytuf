@@ -19,10 +19,10 @@ import {
 
 export const navItems = [
   { href: '/', label: 'Home' },
-  { href: '/dashboard', label: 'Dashboard' },
   { href: '/flashcards', label: 'Flashcards' },
+  { href: '/dashboard', label: 'Dashboard' },
   { href: '/tuf-plus', label: 'Explore +' },
-  { href: 'https://resayai.vercel.app', label: 'Generate resume' , blank:true },
+  // { href: 'https://resayai.vercel.app', label: 'Generate resume' , blank:true },
 ]
 
 const NavLink = ({ href, label,blank }: { href: string, label: string, blank?:boolean }) => {
@@ -47,7 +47,7 @@ const NavBar = () => {
     <div className="z-10 sm:max-w-[12rem] sm:left-0 w-full h-16 sm:h-full flex flex-col justify-center sm:justify-normal sm:top-0 fixed bg-white dark:bg-black">
       <div className="h-16 p-4 flex justify-between gap-1 items-center bg-white dark:bg-black ">
         <Link href={'/'}  className="flex-1 sm:h-full sm:flex sm:items-center sm:justify-start">
-          <svg
+          {/* <svg
             width="80"
             height="20"
             viewBox="0 0 135 36"
@@ -66,7 +66,9 @@ const NavBar = () => {
               d="M86.9282 36H98.7784L100.699 23.9651H130.691L131.882 17.9993H101.825L103.214 8.93625L106.724 5.82379H122.018L120.826 11.9812H132.81L134.929 0H102.156L91.6286 9.00241L86.9282 36Z"
               fill="#D41F30"
             ></path>
-          </svg>
+          </svg> */}
+
+         <span className=' font-extrabold text-4xl text-rose-700 '> ✨ </span>
         </Link>
 
         <div className='flex gap-4 justify-start w-fit items-center'>
@@ -80,7 +82,7 @@ const NavBar = () => {
         className={`hidden  p-4 sm:flex flex-col gap-2 justify-start bg-white dark:bg-black  sm:h-full sm:overflow-x-auto`}
       >
         {navItems.map((item) => (
-          <NavLink key={item.href} href={item.href} label={item.label} blank={item.blank} />
+          <NavLink key={item.href} href={item.href} label={item.label}  />
         ))}
       </div>
       <Footer />

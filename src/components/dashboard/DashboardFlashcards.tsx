@@ -425,7 +425,7 @@ const DashboardFlashcards = () => {
 
             {selectedTopic && (
                 <>
-                    <div className="flex justify-start gap-4 items-center mt-4">
+                    <div className="flex justify-between gap-4 items-center mt-4">
                         <h3 className="text-xl font-semibold">{selectedTopic.name}</h3>
                         <div className="flex gap-2 w-fit">
                             <button
@@ -443,7 +443,7 @@ const DashboardFlashcards = () => {
                     </div>
 
                     {editedTopic && (
-                        <div className="">
+                        <div className="flex gap-2 items-center">
                             <form
                                 onSubmit={handleEditTopic}
                                 className="flex items-center gap-2 flex-wrap"
@@ -465,6 +465,17 @@ const DashboardFlashcards = () => {
                                     Save
                                 </button>
                             </form>
+                            <button
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    if (confirm("Are you sure you want to delete this topic?")) {
+                                        handleDeleteTopic(selectedTopic.id);
+                                    }
+                                }}
+                                className="bg-rose-500 text-white px-4 py-2 h-12 border rounded-md hover:bg-rose-600"
+                            >
+                                Delete
+                            </button>
                         </div>
                     )}
 
@@ -521,18 +532,19 @@ const DashboardFlashcards = () => {
                                 {flashcards.map((card) => (
                                     <li
                                         key={card.id}
-                                        className="p-4 text-white  
+                                        className="p-4 
                 bg-gradient-to-r
-                 from-rose-900 via-rose-600 to-rose-700
+                from-neutral-200 via-white to-neutral-100
+                 dark:from-neutral-900 dark:via-black dark:to-neutral-800
                  rounded-md h-full flex flex-col  justify-between"
                                     >
                                         <div>
-                                            <h4 className="text-lg font-semibold">
-                                                Q: <span className="font-normal">{card.question}</span>
+                                            <h4 className=" font-medium">
+                                                Front: <span className="text-sm font-normal">{card.question}</span>
                                             </h4>
-                                            <p className="font-semibold text-lg ">
-                                                A:{" "}
-                                                <span className=" text-sm font-normal">
+                                            <p className="font-medium line-clamp-2 break-words">
+                                                Back:{" "}
+                                                <span className=" text-sm font-normal text-muted-foreground  ">
                                                     {card.answer}
                                                 </span>
                                             </p>
@@ -546,7 +558,7 @@ const DashboardFlashcards = () => {
                                             </button>
                                             <button
                                                 onClick={() => handleDelete(card.id)}
-                                                className="bg-accent px-4 py-2 rounded-md"
+                                                className="bg-accent  px-4 py-2 rounded-md"
                                             >
                                              {(loadingCardId===card.id) && <BiLoader className="animate-spin inline"/>}   Delete
                                             </button>
