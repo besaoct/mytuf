@@ -228,6 +228,7 @@ const DashboardFlashcards = () => {
     };
 
     const handleDeleteTopic = async (id: number) => {
+       
         try {
             const response = await fetch(`/api/flashcards/topics/delete-topic/${id}`, {
                     // cache:'no-store',
@@ -366,9 +367,14 @@ const DashboardFlashcards = () => {
                 <>
                     <div className="flex justify-start gap-4 items-center mt-4">
                         <h3 className="text-xl font-semibold">{selectedTopic.name}</h3>
-                        <div className="flex gap-2">
+                        <div className="flex gap-2 w-fit">
                             <button
-                                onClick={() => handleDeleteTopic(selectedTopic.id)}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    if (confirm("Are you sure you want to delete this topic?")) {
+                                        handleDeleteTopic(selectedTopic.id);
+                                    }
+                                }}
                                 className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
                             >
                                 Delete
