@@ -43,7 +43,7 @@ const TopicList: React.FC = () => {
 
 {!loading &&  <>
   {(topics.length>=1) ?
-      <ul className="flex gap-4">
+      <ul className="flex gap-4 items-start flex-wrap">
       {topics.map((topic) => (
         <li key={topic.slug} className="text-sm">
           <Link href={`/flashcards/${topic.slug}`} className="hover:underline text-rose-500">
