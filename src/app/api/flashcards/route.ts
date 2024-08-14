@@ -2,9 +2,10 @@ import { NextResponse } from 'next/server';
 import { pool } from '@/lib/db';
 
 export async function GET( req :Request) {
+  
   const url =  new URL(req.url);
   const topicSlug = url.searchParams.get('topicSlug');
-  
+
   try {
     const [topicResult] = await pool.query<any[]>(
       `SELECT id FROM topics WHERE slug = ?`,

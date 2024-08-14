@@ -1,6 +1,8 @@
-// pages/api/flashcards/topics-with-cards.ts
+
 import { NextResponse } from 'next/server';
 import { pool } from '@/lib/db';
+
+export const dynamic = 'force-dynamic'
 
 export async function GET() {
   try {
