@@ -238,8 +238,8 @@ const DashboardFlashcards = () => {
                 throw new Error("Network response was not ok");
             }
             setTopics(topics.filter((topic) => topic.id !== id));
-            setSelectedTopic(null); 
             toast({ title: "Success", description: "Topic deleted successfully" });
+            setSelectedTopic(null); 
         } catch (error) {
             toast({ title: "Error", description: "Something went wrong!" });
             console.error("Error deleting topic:", error);
@@ -341,23 +341,24 @@ const DashboardFlashcards = () => {
                 <div className="mt-4 w-fit">
                     <Select
                         onValueChange={(value) => {
-                            ((value === 'none') || (value === null)) ? 
+                            (value === 'none') ? 
                             setSelectedTopic(null)
                             :
                             setSelectedTopic(
                                 topics.find((topic) => topic.id === Number(value)) || null
                             )
+                           
                         } }
-                        defaultValue={undefined}
+                        defaultValue={""}
                     >
                         <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select a topic..." />
+                            <SelectValue defaultChecked placeholder="Select a topic..." />
                         </SelectTrigger>
                         <SelectContent>
                             <SelectItem key={'none'} value={"none"}>
                                 {'None...'}
                             </SelectItem>
-                            {topics.map((topic) => (
+                            {topics?.map((topic) => (
                                 <SelectItem key={topic.id} value={topic.id.toString()}>
                                     {topic.name}
                                 </SelectItem>
