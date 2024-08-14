@@ -36,7 +36,7 @@ const DashboardBanner: React.FC = () => {
 
     try {
       const response = await fetch('/api/banner/save-banner', {
-        cache:'no-store',
+        // cache:'no-store',
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

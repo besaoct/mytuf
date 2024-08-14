@@ -57,7 +57,7 @@ const DashboardFlashcards = () => {
         }
         try {
             const response = await fetch("/api/flashcards/create", {
-                cache:'no-store',
+                // cache:'no-store',
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -93,7 +93,7 @@ const DashboardFlashcards = () => {
             const response = await fetch(
                 `/api/flashcards/edit-card/${editingCard.id}`,
                 {
-                    cache:'no-store',
+                    // cache:'no-store',
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
@@ -126,7 +126,7 @@ const DashboardFlashcards = () => {
     const handleDelete = async (id: number) => {
         try {
             const response = await fetch(`/api/flashcards/delete-card/${id}`, {
-                cache:'no-store',
+                // cache:'no-store',
                 method: "DELETE",
             });
             if (!response.ok) {
@@ -152,7 +152,7 @@ const DashboardFlashcards = () => {
 
         try {
             const response = await fetch("/api/flashcards/topics/create-topic", {
-                cache:'no-store',
+                // cache:'no-store',
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -185,7 +185,7 @@ const DashboardFlashcards = () => {
 
         try {
             const response = await fetch(`/api/flashcards/topics/edit-topic/${editedTopic.id}`,{
-                    cache:'no-store',
+                    // cache:'no-store',
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
@@ -230,7 +230,7 @@ const DashboardFlashcards = () => {
     const handleDeleteTopic = async (id: number) => {
         try {
             const response = await fetch(`/api/flashcards/topics/delete-topic/${id}`, {
-                    cache:'no-store',
+                    // cache:'no-store',
                     method: "DELETE",
                 }
             );
@@ -256,7 +256,7 @@ const DashboardFlashcards = () => {
 
             try {
                 const response = await fetch(`/api/flashcards?topicSlug=${selectedTopic.slug}`, {
-                      cache:'no-store',
+                    //   cache:'no-store',
                 });
                 if (!response.ok) {
                     throw new Error("Network response was not ok");
@@ -280,7 +280,7 @@ const DashboardFlashcards = () => {
             setLoadingT(true);
             try {
                 const response = await fetch("/api/flashcards/topics", {
-                    cache:'no-store',
+                    // cache:'no-store',
                 });
                 if (!response.ok) {
                     throw new Error("Network response was not ok");

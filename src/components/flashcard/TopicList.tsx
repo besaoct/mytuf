@@ -8,12 +8,12 @@ import { BiLoader } from 'react-icons/bi';
 const TopicList: React.FC = () => {
   const [topics, setTopics] = useState<Topic[]>([]);
   const [loading, setLoading]=useState(true);
-  
+
   useEffect(() => {
     const fetchTopicsWithCards = async () => {
       try {
         const response = await fetch('/api/flashcards/topics-with-cards', {
-          cache: 'no-store'
+          // cache: 'no-store'
         });
         if (!response.ok) {
           throw new Error('Network response was not ok');
