@@ -14,6 +14,8 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
+import { Button } from "../ui/button";
+import { MagicWandIcon } from "@radix-ui/react-icons";
 
 
 interface Flashcard {
@@ -29,11 +31,20 @@ interface Topic {
 }
 
 
+interface  aiCard {
+    topic_name?: string;
+    topic_slug?: string;
+    desc?:string;
+    num: number;
+}
+
+
 const DashboardFlashcards = () => {
     const router = useRouter();
     const { toast } = useToast();
 
     const [topics, setTopics] = useState<Topic[]>([]);
+    const [aiCard, setAiCard] = useState<aiCard| null>(null);
     const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
     const [editedTopic, setEditedTopic] = useState<Topic | null>(null);
 
@@ -47,6 +58,52 @@ const DashboardFlashcards = () => {
     const [loadingCF, setLoadingCF] = useState(false);
     const [loadingF, setLoadingF] = useState(false);
     const [loadingT, setLoadingT] = useState(false);
+
+    const [loadingC, setLoadingC] = useState(false);
+    const [loadingCardId, setLoadingCardId] = useState<number | null>(null);
+
+    const [loadingGAI, setLoadingGAI] = useState(false);
+
+    const handleGenerateAi = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setLoadingGAI(true);
+        if (!selectedTopic) {
+            console.error("No topic selected");
+            return;
+        }
+        try {
+            const response = await fetch("/api/flashcards/ai", {
+                // cache:'no-store',
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    topic_slug: selectedTopic.slug,
+                    topic_name: aiCard?.topic_name || selectedTopic.name,
+                    description: aiCard?.desc,
+                    number_of_flashcards: aiCard?.num || 4,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+
+            const res = await response.json();
+
+            setFlashcards([...flashcards, ...res.result]);
+            toast({ title: "success", description: "Flashcards saved successfully" });
+            setAiCard(null)
+        } catch (error) {
+            toast({ title: "Error", description: "Error creating flashcards" });
+            console.error("Error creating flashcard:", error);
+        } finally {
+            setLoadingGAI(false);
+            setAiCard(null)
+        }
+    };
+
 
     const handleCreateFlashcard = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -88,7 +145,7 @@ const DashboardFlashcards = () => {
 
     const handleEdit = async () => {
         if (!editingCard) return;
-
+        setLoadingC(true)
         try {
             const response = await fetch(
                 `/api/flashcards/edit-card/${editingCard.id}`,
@@ -117,6 +174,7 @@ const DashboardFlashcards = () => {
                 description: "Flashcard updated successfully",
             });
             setEditingCard(null);
+            setLoadingC(false)
         } catch (error) {
             toast({ title: "Error", description: "Something went wrong!" });
             console.error("Error updating flashcard:", error);
@@ -124,6 +182,7 @@ const DashboardFlashcards = () => {
     };
 
     const handleDelete = async (id: number) => {
+        setLoadingCardId(id)
         try {
             const response = await fetch(`/api/flashcards/delete-card/${id}`, {
                 // cache:'no-store',
@@ -137,6 +196,7 @@ const DashboardFlashcards = () => {
                 title: "Success",
                 description: "Flashcard deleted successfully",
             });
+            setLoadingCardId(null)
         } catch (error) {
             toast({ title: "Error", description: "Something went wrong!" });
             console.error("Error deleting flashcard:", error);
@@ -412,6 +472,9 @@ const DashboardFlashcards = () => {
                         <h3 className="text-xl font-semibold ">
                             Create Flashcard for {selectedTopic.name}
                         </h3>
+                        <Button type="button" variant={'secondary'} className="h-10 gap-2" onClick={()=>setAiCard({num:4})}>
+                          <MagicWandIcon className="size-4 inline"/> Use AI to create
+                        </Button>
                         <label className="block">
                             <span className="text-neutral-700 dark:text-neutral-300">
                                 Question
@@ -485,7 +548,7 @@ const DashboardFlashcards = () => {
                                                 onClick={() => handleDelete(card.id)}
                                                 className="bg-accent px-4 py-2 rounded-md"
                                             >
-                                                Delete
+                                             {(loadingCardId===card.id) && <BiLoader className="animate-spin inline"/>}   Delete
                                             </button>
                                         </div>
                                     </li>
@@ -529,10 +592,67 @@ const DashboardFlashcards = () => {
                                         onClick={handleEdit}
                                         className="bg-rose-500 text-white px-4 py-2 rounded-md hover:bg-rose-600"
                                     >
-                                        Save Changes
+                                        {loadingC && <BiLoader className="animate-spin inline"/>}  Save Changes
                                     </button>
                                     <button
                                         onClick={() => setEditingCard(null)}
+                                        className="bg-neutral-500 text-white px-4 py-2 rounded-md hover:bg-neutral-600"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                  {aiCard && (
+                        <div className="fixed sm:ml-[12rem] p-8 inset-0 flex  items-center justify-center bg-neutral-800 bg-opacity-90">
+                            <div className="bg-white dark:bg-neutral-900 p-4 rounded-md shadow-lg min-w-64 max-w-lg w-full">
+                                <h3 className="text-xl font-semibold mb-4">Create Flashcards</h3>
+                        
+
+
+                             <label className="block my-2">
+                                    <span className="text-neutral-700 dark:text-neutral-300">
+                                        Number of outputs
+                                    </span>
+                                </label>
+
+                               <Input
+                                    type="number"
+                                    onChange={(e) =>
+                                        setAiCard({ ...aiCard, num: Number(e.target.value) })
+                                    }
+                                    placeholder="eg; 4"
+                                    className="mt-1  w-full bg-accent/40  rounded-md shadow-sm"
+                                    required
+                                />
+
+                                <label className="block my-2">
+                                    <span className="text-neutral-700 dark:text-neutral-300">
+                                        Description 
+                                    </span>
+                                </label>
+
+                                <Textarea
+                                  
+                                    onChange={(e) =>
+                                        setAiCard({ ...aiCard, desc: e.target.value })
+                                    }
+                                    placeholder="eg.,  arrays and strings "
+                                    className="mt-1 block max-h-20 w-full bg-accent/40  rounded-md shadow-sm"
+                                    required
+                                />
+                                <div className="mt-4 flex space-x-2">
+                                    <button
+                                        onClick={handleGenerateAi}
+                                        className="bg-rose-500 text-white px-4 py-2 rounded-md hover:bg-rose-600"
+                                    >
+                                      {loadingGAI && <BiLoader className=" animate-spin inline"/>} Generate
+                                    </button>
+
+                                    <button
+                                        onClick={() => setAiCard(null)}
                                         className="bg-neutral-500 text-white px-4 py-2 rounded-md hover:bg-neutral-600"
                                     >
                                         Cancel
