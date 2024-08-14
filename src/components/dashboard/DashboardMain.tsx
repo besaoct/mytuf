@@ -38,6 +38,7 @@ const DashboardCard = ({
 
 
 const DashboardMain = () => {
+  
   const searchParam = useSearchParams().get('manage')
 
   return (

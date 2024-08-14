@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { pool } from '@/lib/db';
+import { ResultSetHeader } from 'mysql2/promise';
 
 interface BannerSettings {
   is_visible: boolean;
@@ -10,19 +11,18 @@ interface BannerSettings {
 }
 
 export async function POST(req: Request) {
+  const data: BannerSettings = await req.json();
+  const { is_visible, description, timer, link, bannerUsername } = data;
+
+  if (!bannerUsername) {
+    return NextResponse.json({ error: 'Banner username is required' }, { status: 400 });
+  }
+
+  const startdate = new Date(); 
+  const enddate = new Date(startdate.getTime() + timer * 1000);
   try {
 
-    const data: BannerSettings = await req.json();
-    const { is_visible, description, timer, link, bannerUsername } = data;
-
-    if (!bannerUsername) {
-      return NextResponse.json({ error: 'Banner username is required' }, { status: 400 });
-    }
-
-    const startdate = new Date(); 
-    const enddate = new Date(startdate.getTime() + timer * 1000);
-
-    await pool.query(
+    const [result] = await pool.query<ResultSetHeader>(
       `INSERT INTO banner_settings (banner_username, is_visible, description, link, startdate, enddate, timer)
        VALUES (?, ?, ?, ?, ?, ?, ?)
        ON DUPLICATE KEY UPDATE
@@ -35,7 +35,11 @@ export async function POST(req: Request) {
       [bannerUsername, is_visible, description, link, startdate, enddate, timer]
     );
 
-    return NextResponse.json({ message: 'Settings saved successfully' });
+    if (result.affectedRows === 0) {
+      return NextResponse.json({ error: 'Banner not found' }, { status: 404 });
+    }
+
+    return NextResponse.json({ message: 'Settings saved successfully', bannerUsername, enddate});
 
   } catch (error) {
     console.error('Error saving banner settings:', error);

@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+'use client'
 
+import React, { useState } from 'react';
 interface FlashcardProps {
   question: string;
   answer: string;
@@ -7,7 +8,6 @@ interface FlashcardProps {
 }
 
 const Flashcard: React.FC<FlashcardProps> = ({ question, answer }) => {
-
   const [isFlipped, setIsFlipped] = useState(false);
   return (
     <div

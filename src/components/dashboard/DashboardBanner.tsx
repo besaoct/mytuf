@@ -30,44 +30,6 @@ const DashboardBanner: React.FC = () => {
   const router = useRouter();
   const bannerUsername = "defaultBanner";
 
-  useEffect(() => {
-    const fetchSettings = async () => {
-      try {
-        const response = await fetch(`/api/banner/get-banner?banner_username=${bannerUsername}`, {
-          // cache: 'no-store',
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-
-        if (!response.ok) {
-          if (response.status === 404) {
-            setError('Banner settings not found');
-          } else {
-            setError(`Error: ${response.status} ${response.statusText}`);
-          }
-          return;
-        }
-
-        const data: BannerSettings = await response.json();
-        // console.log(data)
-        const timerInSeconds = data.timer;
-        setVisible(data.is_visible);
-        setEnddate(data.enddate);
-        setDescription(data.description);
-        setLink(data.link);
-        setDays(Math.floor(timerInSeconds / 86400));
-        setHours(Math.floor((timerInSeconds % 86400) / 3600));
-        setMinutes(Math.floor((timerInSeconds % 3600) / 60));
-        setSeconds(timerInSeconds % 60);
-      } catch (error) {
-        setError('An unexpected error occurred.');
-      }
-    };
-
-    fetchSettings();
-  }, []);
 
   const handleSave = async () => {
     const totalTimerInSeconds = days * 86400 + hours * 3600 + minutes * 60 + seconds;
@@ -85,8 +47,8 @@ const DashboardBanner: React.FC = () => {
           timer: totalTimerInSeconds,
           link,
           bannerUsername, 
+          enddate
         }),
-      
       });
 
       if (!response.ok) {
@@ -97,23 +59,58 @@ const DashboardBanner: React.FC = () => {
         }
         return;
       }
-
-      setSuccess((await response.json()).message);
+      const newData = await response.json()
+      setEnddate(newData.enddate);
+      setSuccess(newData.message);
       toast({title:"Success", description:"Banner saved successfully"})
-      router.refresh()
       setTimeout(() => {
         setSuccess('');
       }, 3000);
     } catch (error) {
       toast({title:"Error", description:"Something went wrong!"})
       setError('An unexpected error occurred.');
-      router.refresh()
       setTimeout(() => {
         setError('');
       }, 3000);
     }
   };
 
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const response = await fetch(`/api/banner/get-banner?banner_username=${bannerUsername}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          if (response.status === 404) {
+            setError('Banner settings not found');
+          } else {
+            setError(`Error: ${response.status} ${response.statusText}`);
+          }
+          return;
+        }
+
+        const data: BannerSettings = await response.json();
+        const timerInSeconds = data.timer;
+        setVisible(data.is_visible);
+        setEnddate(data.enddate);
+        setDescription(data.description);
+        setLink(data.link);
+        setDays(Math.floor(timerInSeconds / 86400));
+        setHours(Math.floor((timerInSeconds % 86400) / 3600));
+        setMinutes(Math.floor((timerInSeconds % 3600) / 60));
+        setSeconds(timerInSeconds % 60);
+      } catch (error) {
+        setError('An unexpected error occurred.');
+      }
+    };
+
+    fetchSettings();
+  }, []);
 
   const [countdown, setCountdown] = useState(0);
 

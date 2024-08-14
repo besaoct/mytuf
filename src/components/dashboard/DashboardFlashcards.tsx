@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { BiChevronLeft, BiLoader } from "react-icons/bi";
@@ -14,7 +16,6 @@ import {
 } from "@/components/ui/select";
 
 
-
 interface Flashcard {
     id: number;
     question: string;
@@ -26,7 +27,6 @@ interface Topic {
     name: string;
     slug: string;
 }
-
 
 
 const DashboardFlashcards = () => {
@@ -51,7 +51,7 @@ const DashboardFlashcards = () => {
     const handleCreateFlashcard = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoadingCF(true);
-        if (!selectedTopic || !selectedTopic.slug) {
+        if (!selectedTopic) {
             console.error("No topic selected");
             return;
         }
@@ -74,7 +74,6 @@ const DashboardFlashcards = () => {
             }
 
             const newCard = await response.json();
-
             setFlashcards([...flashcards, newCard]);
             toast({ title: "success", description: "Flashcard saved successfully" });
             setNewQuestion("");
@@ -146,11 +145,12 @@ const DashboardFlashcards = () => {
 
     const handleCreateTopic = async (e: React.FormEvent) => {
         e.preventDefault();
+        setLoadingCT(true);
         if (!newTopicName || newTopicName.trim() === "") {
             return null;
         }
+
         try {
-            setLoadingCT(true);
             const response = await fetch("/api/flashcards/topics/create-topic", {
                 cache:'no-store',
                 method: "POST",
@@ -159,13 +159,15 @@ const DashboardFlashcards = () => {
                 },
                 body: JSON.stringify({ name: newTopicName }),
             });
+
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
+
             const newTopic = await response.json();
             setTopics([...topics, newTopic]);
-            setNewTopicName("");
             toast({ title: "Success", description: "Topic saved successfully" });
+            setNewTopicName("");
         } catch (error) {
             console.error("Error creating topic:", error);
             toast({ title: "Error", description: "Error creating topic" });
@@ -176,13 +178,13 @@ const DashboardFlashcards = () => {
 
     const handleEditTopic = async (e: React.FormEvent) => {
         e.preventDefault();
+
         if (!editedTopic) {
             return null;
         }
+
         try {
-            const response = await fetch(
-                `/api/flashcards/topics/edit-topic/${editedTopic.id}`,
-                {
+            const response = await fetch(`/api/flashcards/topics/edit-topic/${editedTopic.id}`,{
                     cache:'no-store',
                     method: "PUT",
                     headers: {
@@ -191,6 +193,7 @@ const DashboardFlashcards = () => {
                     body: JSON.stringify({ name: editedTopic.name }),
                 }
             );
+
             if (!response.ok) {
                 throw new Error("Network response was not ok");
             }
@@ -204,11 +207,13 @@ const DashboardFlashcards = () => {
                         : topic
                 )
             );
+
             setEditedTopic({
                 ...editedTopic,
                 name: updatedTopic.name,
                 slug: updatedTopic.slug,
             });
+
             setSelectedTopic({
                 ...editedTopic,
                 name: updatedTopic.name,
@@ -224,9 +229,7 @@ const DashboardFlashcards = () => {
 
     const handleDeleteTopic = async (id: number) => {
         try {
-            const response = await fetch(
-                `/api/flashcards/topics/delete-topic/${id}`,
-                {
+            const response = await fetch(`/api/flashcards/topics/delete-topic/${id}`, {
                     cache:'no-store',
                     method: "DELETE",
                 }
@@ -243,13 +246,16 @@ const DashboardFlashcards = () => {
         }
     };
 
+
+
     useEffect(() => {
         const fetchFlashcards = async () => {
+          
             if (!selectedTopic) return;
             setLoadingF(true);
+
             try {
-                const topicSlug = selectedTopic.slug;
-                const response = await fetch(`/api/flashcards?topicSlug=${topicSlug}`, {
+                const response = await fetch(`/api/flashcards?topicSlug=${selectedTopic.slug}`, {
                       cache:'no-store',
                 });
                 if (!response.ok) {
@@ -268,9 +274,12 @@ const DashboardFlashcards = () => {
         fetchFlashcards();
     }, [selectedTopic]);
 
+
     useEffect(() => {
         const fetchTopics = async () => {
+            
             setLoadingT(true);
+
             try {
                 const response = await fetch("/api/flashcards/topics", {
                     cache:'no-store',
@@ -281,7 +290,6 @@ const DashboardFlashcards = () => {
                 const data = await response.json();
                 setTopics(data);
             } catch (error) {
-                toast({ title: "Error", description: "Something went wrong!" });
                 console.error("Error fetching topics:", error);
             } finally {
                 setLoadingT(false);
@@ -289,7 +297,7 @@ const DashboardFlashcards = () => {
         };
 
         fetchTopics();
-    }, [toast]);
+    }, []);
 
     return (
         <div className="mx-auto p-4 bg-white dark:bg-black rounded-md shadow-sm flex flex-col gap-4 w-full">
