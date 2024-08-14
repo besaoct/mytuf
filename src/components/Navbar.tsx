@@ -21,7 +21,7 @@ export const navItems = [
   { href: '/', label: 'Home' },
   { href: '/flashcards', label: 'Flashcards' },
   { href: '/dashboard', label: 'Dashboard' },
-  { href: '/tuf-plus', label: 'Explore +' },
+  // { href: '/tuf-plus', label: 'Explore +' },
   // { href: 'https://resayai.vercel.app', label: 'Generate resume' , blank:true },
 ]
 
