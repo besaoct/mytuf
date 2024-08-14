@@ -143,8 +143,8 @@ const DashboardBanner: React.FC = () => {
       <h2 onClick={() => router.back()} className="font-medium  cursor-pointer flex items-center bg-accent p-2 pr-4 rounded-md w-fit">
         <BiChevronLeft  size={20} className='inline cursor-pointer w-fit p-0 ' /> Back
       </h2>
-      {error && <div className="bg-red-100 text-red-700 p-4 rounded mb-4">{'Too many connections!!! As i am using a free tier service for mysql db, please try again later... '}</div>}
-      {success && <div className="bg-green-100 text-green-600 p-4 rounded mb-4">{success}</div>}
+      {/* {error && <div className="bg-red-100 text-red-700 p-4 rounded mb-4">{'Too many connections!!! As i am using a free tier service for mysql db, please try again later... '}</div>}
+      {success && <div className="bg-green-100 text-green-600 p-4 rounded mb-4">{success}</div>} */}
       <div className="flex flex-col gap-4 w-full">
         <div className="flex items-center justify-start gap-4">
           <label htmlFor='bannerToggleVisibility' className="text-sm font-medium select-none cursor-pointer">
