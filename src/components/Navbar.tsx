@@ -118,7 +118,7 @@ export function MobileMenuToggle() {
         <DropdownMenuContent align="end" className="sm:hidden">
   
           {navItems.map((item)=>
-              <DropdownMenuItem key={item.href} onClick={() => push(item.href)}>
+              <DropdownMenuItem key={item.href} onClick={() => push(item.href)} className='font-medium'>
                  {item.label}
               </DropdownMenuItem>
           )}

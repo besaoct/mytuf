@@ -341,28 +341,21 @@ const DashboardFlashcards = () => {
                 <div className="mt-4 w-fit">
                     <Select
                         onValueChange={(value) => {
-                            (value === 'none') ? 
-                            setSelectedTopic(null)
-                            :
-                            setSelectedTopic(
-                                topics.find((topic) => topic.id === Number(value)) || null
-                            )
-                           
-                        } }
-                        defaultValue={""}
-                    >
+                            setSelectedTopic(topics.find((topic) => topic.id === Number(value)) || null)                 
+                        }}
+                        value={(selectedTopic?.id)?.toString() || ''} >
                         <SelectTrigger className="w-[180px]">
                             <SelectValue defaultChecked placeholder="Select a topic..." />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem key={'none'} value={"none"}>
-                                {'None...'}
-                            </SelectItem>
                             {topics?.map((topic) => (
                                 <SelectItem key={topic.id} value={topic.id.toString()}>
                                     {topic.name}
                                 </SelectItem>
                             ))}
+                            <SelectItem key={'none'} value={"none"}>
+                                {'None'}
+                            </SelectItem>
                         </SelectContent>
                     </Select>
             
