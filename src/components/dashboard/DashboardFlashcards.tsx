@@ -277,7 +277,7 @@ const DashboardFlashcards = () => {
 
     useEffect(() => {
         const fetchTopics = async () => {
-            
+
             setLoadingT(true);
 
             try {
@@ -455,7 +455,7 @@ const DashboardFlashcards = () => {
                         </div>
                     )}
                     {!loadingF && flashcards.length > 0 && (
-                        <div className="mt-4">
+                        <div className="mt-4 h-full">
                             <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4 h-fit">
                                 {flashcards.map((card) => (
                                     <li
@@ -463,7 +463,7 @@ const DashboardFlashcards = () => {
                                         className="p-4 text-white  
                 bg-gradient-to-r
                  from-rose-900 via-rose-600 to-rose-700
-                 rounded-md h-fit"
+                 rounded-md h-full flex flex-col  justify-between"
                                     >
                                         <div>
                                             <h4 className="text-lg font-semibold">
