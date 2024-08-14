@@ -3,8 +3,6 @@ import DashboardMain from '@/components/dashboard/DashboardMain'
 import Loaders from '@/components/SkeletonLoader'
 import React, { Suspense } from 'react'
 
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
 
 const page = () => {
   return (
