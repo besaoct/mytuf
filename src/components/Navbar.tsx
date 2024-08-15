@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
+import { IoSparkles } from 'react-icons/io5'
 
 export const navItems = [
   { href: '/', label: 'Home' },
@@ -47,7 +48,9 @@ const NavBar = () => {
     <div className="z-10 sm:max-w-[12rem] sm:left-0 w-full h-16 sm:h-full flex flex-col justify-center sm:justify-normal sm:top-0 fixed bg-white dark:bg-black">
       <div className="h-16 p-4 flex justify-between gap-1 items-center bg-white dark:bg-black ">
         <Link href={'/'}  className="flex-1 sm:h-full sm:flex sm:items-center sm:justify-start">
-         <span className=' font-extrabold text-4xl text-rose-700 '> ✨ </span>
+         <span className=' font-extrabold text-4xl text-rose-700 '> 
+          <IoSparkles/>
+           </span>
         </Link>
 
         <div className='flex gap-4 justify-start w-fit items-center'>
