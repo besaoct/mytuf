@@ -1,34 +1,127 @@
-# Getting Started
+# Mytuf
 
-## First, run the development server
+## Overview
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+This project was developed using **Next.js/React** for the first round of the TakeUforward Software Engineering hiring process. It allows users to manage promotional banners with countdown timers and to create, edit, and manage flashcards under various topics. The aim is to provide an interactive platform for both promotional content and educational resources.
+
+## Features
+
+### Banner
+
+#### Frontend
+
+- **Dynamic Display**: When a banner is enabled, it will show on the frontend, and it will be hidden when disabled. Additionally, when the countdown reaches zero, the banner automatically gets hidden.
+- **Customization**: The banner includes a countdown, a description, and a link.
+
+#### Management
+
+- **Customizable Countdown Timer**: Set a countdown timer for promotional banners that can be displayed across the application. The timer is fully customizable to meet specific promotional needs.
+- **Dashboard Management**: Manage the banner through the dashboard, where you can enable or disable banners and set their visibility duration. No need to refresh the page after updating, thanks to effective state management.
+
+### Flashcard
+
+#### Frontend
+
+- **Display**: Topics and flashcards are shown on the frontend, grouped under user-created topics, which are represented by unique slugs. The flashcard interface is designed for ease of use with smooth transitions between cards.
+
+#### Management
+
+- **CRUD Operations**: Add, edit, and delete flashcards within a selected topic. This can be managed through a dedicated dashboard section.
+- **AI-Powered Flashcard Generation**: Automatically generate flashcards using AI under the selected topic.
+- **Responsive Design**: The dashboard is designed to be fully responsive, ensuring a seamless experience across all devices.
+- **Real-Time Updates**: No need to refresh the page after updates, thanks to effective state management.
+
+## Backend
+
+Backend REST APIs are located in the [Backend](https://github.com/besaoct/mytuf/tree/main/src/app) folder.
+
+```files
+src/app/api/
+├── banner/
+│   ├── get-banner/
+│   │   └── route.ts
+│   └── save-banner/
+│       └── route.ts
+└── flashcards/
+    ├── ai/
+    │   └── route.ts
+    ├── create/
+    │   └── route.ts
+    ├── delete-card/
+    │   └── [id]/
+    │       └── route.ts
+    ├── edit-card/
+    │   └── [id]/
+    │       └── route.ts
+    ├── topics/
+    │   ├── create-topic/
+    │   │   └── route.ts
+    │   ├── delete-topic/
+    │   │   └── [id]/
+    │   │       └── route.ts
+    │   ├── edit-topic/
+    │   │   └── [id]/
+    │   │       └── route.ts
+    │   └── route.ts
+    └── topics-with-cards/
+        └── route.ts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Technologies Used
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js**: Framework for building the frontend.
+- **Tailwind CSS**: Used for styling, providing a clean and modern look.
+- **MySQL**: Database used for storing topics and flashcards data.
+- **React Icons**: Icons used for UI navigation and interaction.
+- **Google Generative AI**: Integrated for creating flashcards content.
+- **React Hooks**: Used for state management and handling side effects in the application.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Installation and Setup
 
-## Learn More
+1. **Clone the repository**:
 
-To learn more about Next.js, take a look at the following resources:
+   ```bash
+   git clone https://github.com/besaoct/mytuf.git
+   cd mytuf
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Install dependencies**:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+   ```bash
+   npm install
+   ```
 
-## Deploy on Vercel
+3. **Set up environment variables**: Create a `.env` file in the root directory and configure the following variables:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   DB_HOST=''
+   DB_PORT=''
+   DB_USER=''
+   DB_NAME=''
+   DB_PASSWORD=''
+   GEMINI_API_KEY=''
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+4. **Run the development server**:
+
+   ```bash
+   npm run dev
+   ```
+
+5. **Access the application**:
+   Open [http://localhost:3000](http://localhost:3000) in your browser to view the application.
+
+## Usage
+
+- **Manage Banners**: Access the banner settings from the dashboard, configure the countdown timer, and toggle the banner display on or off.
+- **Create Topics**: Navigate to the Topic Management section to create new topics that will group flashcards.
+- **Add/Edit Flashcards**: Within each topic, add new flashcards or edit existing ones. The flashcard interface allows for easy navigation and management.
+- **Use AI for Flashcards**: Utilize the AI generation feature to quickly create flashcards based on input topics or descriptions.
+
+## Contributing
+
+Contributions are welcome! Please submit a pull request or open an issue for any features, enhancements, or bug fixes.
+
+## License
+
+This project is licensed under the MIT License.
