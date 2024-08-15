@@ -427,23 +427,10 @@ const DashboardFlashcards = () => {
                 <>
                     <div className="flex justify-between gap-4 items-center mt-4">
                         <h3 className="text-xl font-semibold">{selectedTopic.name}</h3>
-                        <div className="flex gap-2 w-fit">
-                            <button
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    if (confirm("Are you sure you want to delete this topic?")) {
-                                        handleDeleteTopic(selectedTopic.id);
-                                    }
-                                }}
-                                className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600"
-                            >
-                                Delete
-                            </button>
-                        </div>
                     </div>
 
                     {editedTopic && (
-                        <div className="flex gap-2 items-center">
+                        <div className="flex gap-2 items-center flex-wrap">
                             <form
                                 onSubmit={handleEditTopic}
                                 className="flex items-center gap-2 flex-wrap"
